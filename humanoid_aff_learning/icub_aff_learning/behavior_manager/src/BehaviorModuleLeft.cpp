@@ -273,6 +273,12 @@ bool BehaviorModule::configure(ResourceFinder &rf) {
   ok = ok && driver_head.view(encoders_head);
   ok = ok && driver_torso.view(pos_ctrl_torso);
   ok = ok && driver_torso.view(encoders_torso);
+  ok = ok && driver_left.view(ictrl_left);
+  ok = ok && driver_left.view(iimp_left);
+  ok = ok && driver_left.view(itrq_left);
+  ok = ok && driver_right.view(ictrl_right);
+  ok = ok && driver_right.view(iimp_right);
+  ok = ok && driver_right.view(itrq_right);
 
 
   chosen_arm = "left";
@@ -662,6 +668,9 @@ void BehaviorModule::tuckArms() {
     pos_ctrl_right->setRefSpeed(i, 10.0);
     pos_ctrl_left->setRefAcceleration(i, 50.0);
     pos_ctrl_right->setRefAcceleration(i, 50.0);
+    //may change these values but damping and stiffnes should be adjusted accordingly for stability
+    iimp_left->setImpedance(i, 0.111, 0.014);
+    iimp_right->setImpedance(i, 0.111, 0.014);
   }
 
   //set command positions
@@ -673,13 +682,21 @@ void BehaviorModule::tuckArms() {
   js[1] = 20;
   //js[1] = 40;//for simulator
   js[2] = -30;
-  js[3] = 60;
-  //js[3] = 0;
+  // js[3] = 60;
+  js[3] = 0; //for torque control
   js[4] = -60;
   js[5] = 0;
   js[6] = 20;
 
-  //ictrl->setImpedancePositionMode(3);
+  for (int i = 0; i < 4; ++i) 	// first four joints can be controlled by impedance control
+    {
+      ictrl_left->setImpedancePositionMode(i);
+      ictrl_right->setImpedancePositionMode(i);
+    }
+
+  ictrl_left->setTorqueMode(3);
+  ictrl_right->setTorqueMode(3);
+
   for (int i = 7; i < js.size(); i++)
     js[i] = positions_left_enc[i];
   pos_ctrl_left->positionMove(js.data());
@@ -698,8 +715,14 @@ void BehaviorModule::tuckArms() {
     pos_ctrl_right->checkMotionDone(&done);
     Time::delay(0.001);
   }
+  for (int i = 0; i < js.size(); ++i)
+    {
+      ictrl_left->setPositionMode(i);
+      ictrl_right->setPositionMode(i);
+    }
 
   js[0] = 10;
+  js[3] = 60;
   pos_ctrl_left->positionMove(js.data());
   pos_ctrl_right->positionMove(js.data());
   done = false;
