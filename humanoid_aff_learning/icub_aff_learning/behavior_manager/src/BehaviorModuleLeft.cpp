@@ -132,41 +132,41 @@ bool BehaviorModule::actionCallback(behavior_manager::Action::Request& request,
       release(center, false);
       logFlag = false;
     }
-    else if (request.task == behavior_manager::Action::Request::CLOSE_EYE_LIDS) {
-      ROS_INFO("close eye lids");
-      closeEyeLids();
-      logFlag = false;
-    }
-    else if (request.task == behavior_manager::Action::Request::OPEN_EYE_LIDS) {
-      ROS_INFO("open eye lids");
-      openEyeLids();
-      logFlag = false;
-    }
-    else if (request.task == behavior_manager::Action::Request::HAPPY) {
-      ROS_INFO("happy");
-      happy();
-      logFlag = false;
-    }
-    else if (request.task == behavior_manager::Action::Request::ANGRY) {
-      ROS_INFO("angry");
-      angry();
-      logFlag = false;
-    }
-    else if (request.task == behavior_manager::Action::Request::SAD) {
-      ROS_INFO("sad");
-      sad();
-      logFlag = false;
-    }
-    else if (request.task == behavior_manager::Action::Request::EVIL) {
-      ROS_INFO("evil");
-      evil();
-      logFlag = false;
-    }
-    else if (request.task == behavior_manager::Action::Request::NEUTRAL) {
-      ROS_INFO("neutral");
-      neutral();
-      logFlag = false;
-    }
+    // else if (request.task == behavior_manager::Action::Request::CLOSE_EYE_LIDS) {
+    //   ROS_INFO("close eye lids");
+    //   closeEyeLids();
+    //   logFlag = false;
+    // }
+    // else if (request.task == behavior_manager::Action::Request::OPEN_EYE_LIDS) {
+    //   ROS_INFO("open eye lids");
+    //   openEyeLids();
+    //   logFlag = false;
+    // }
+    // else if (request.task == behavior_manager::Action::Request::HAPPY) {
+    //   ROS_INFO("happy");
+    //   happy();
+    //   logFlag = false;
+    // }
+    // else if (request.task == behavior_manager::Action::Request::ANGRY) {
+    //   ROS_INFO("angry");
+    //   angry();
+    //   logFlag = false;
+    // }
+    // else if (request.task == behavior_manager::Action::Request::SAD) {
+    //   ROS_INFO("sad");
+    //   sad();
+    //   logFlag = false;
+    // }
+    // else if (request.task == behavior_manager::Action::Request::EVIL) {
+    //   ROS_INFO("evil");
+    //   evil();
+    //   logFlag = false;
+    // }
+    // else if (request.task == behavior_manager::Action::Request::NEUTRAL) {
+    //   ROS_INFO("neutral");
+    //   neutral();
+    //   logFlag = false;
+    // }
 
   }
   response.feedback = behavior_manager::Action::Response::DONE;
