@@ -74,6 +74,14 @@ protected:
 	IPositionControl* pos_ctrl_torso;
 	IGazeControl* igaze;
 
+	IControlMode *ictrl_left;
+	IImpedanceControl *iimp_left;
+	ITorqueControl *itrq_left;
+	IControlMode *ictrl_right;
+	IImpedanceControl *iimp_right;
+	ITorqueControl *itrq_right;
+
+
 	IEncoders* encoders_right;
 	IEncoders* encoders_left;
 	IEncoders *encoders_head;

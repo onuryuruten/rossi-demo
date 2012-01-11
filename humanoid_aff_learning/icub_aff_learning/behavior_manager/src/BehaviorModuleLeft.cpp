@@ -688,11 +688,12 @@ void BehaviorModule::tuckArms() {
   js[5] = 0;
   js[6] = 20;
 
-  for (int i = 0; i < 4; ++i) 	// first four joints can be controlled by impedance control
-    {
-      ictrl_left->setImpedancePositionMode(i);
-      ictrl_right->setImpedancePositionMode(i);
-    }
+  // enable for impedance control
+  // for (int i = 0; i < 5; ++i) 	// first four joints can be controlled by impedance control
+  //   {
+  //     ictrl_left->setImpedancePositionMode(i);
+  //     ictrl_right->setImpedancePositionMode(i);
+  //   }
 
   ictrl_left->setTorqueMode(3);
   ictrl_right->setTorqueMode(3);
@@ -715,13 +716,12 @@ void BehaviorModule::tuckArms() {
     pos_ctrl_right->checkMotionDone(&done);
     Time::delay(0.001);
   }
-  for (int i = 0; i < js.size(); ++i)
+  for (int i = 0; i < 5; ++i)
     {
       ictrl_left->setPositionMode(i);
       ictrl_right->setPositionMode(i);
     }
 
-  js[0] = 10;
   js[3] = 60;
   pos_ctrl_left->positionMove(js.data());
   pos_ctrl_right->positionMove(js.data());
@@ -735,15 +735,6 @@ void BehaviorModule::tuckArms() {
     pos_ctrl_right->checkMotionDone(&done);
     Time::delay(0.001);
   }
-
-  /*ictrl->setPositionMode(3);
-    js[3] = 60;
-    pos_ctrl_left->positionMove(js.data());
-    done = false;
-    while (!done && left_arm_cart_solver_active) {
-    pos_ctrl_left->checkMotionDone(&done);
-    Time::delay(0.001);
-    }*/
 
   //finally connect cartesian solvers back
   if (left_arm_cart_solver_active) {
